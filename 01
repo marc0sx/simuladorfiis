@@ -1,0 +1,52 @@
+package application;
+
+import java.util.Scanner;
+
+public class Program {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Simulação de Investimento em Fundo Imobiliário");
+        System.out.println("--------------------------------------------");
+
+        System.out.print("Preço da cota: ");
+        double precoCota = scanner.nextDouble();
+
+        System.out.print("Último rendimento da cota: ");
+        double rendimentoCota = scanner.nextDouble();
+
+        System.out.print("Investimento mensal: ");
+        double investimentoMensal = scanner.nextDouble();
+
+        System.out.print("Prazo em anos: ");
+        int prazoAnos = scanner.nextInt();
+
+        System.out.print("Quantidade de cotas inicial: ");
+        int quantidadeCotasInicial = scanner.nextInt();
+        
+        double valorInicial = quantidadeCotasInicial * precoCota;
+        double totalDividendos = 0;
+        System.out.println("\nDetalhes do Investimento:");
+        System.out.println("------------------------");
+
+        for (int i = 1; i <= prazoAnos * 3; i++) {
+            double dividendo = (valorInicial / precoCota) * rendimentoCota;
+
+            if (i > 1) {
+                valorInicial = valorInicial + dividendo + investimentoMensal;
+                dividendo = (valorInicial / precoCota) * rendimentoCota;              
+            }
+            totalDividendos += dividendo;
+            double cotas = valorInicial / precoCota; 
+            System.out.printf("Mês %d\n", i);
+            System.out.printf("  - Saldo: R$ %.2f\n", valorInicial);
+            System.out.printf("  - Dividendo: R$ %.2f\n", dividendo);
+            System.out.printf("  - Quant de cotas: %.0f\n", cotas);
+            System.out.printf("  - Total de dividendos reinvestido: R$ %,.2f\n", totalDividendos);
+
+        }
+        
+        scanner.close();
+    }
+}
